@@ -10,7 +10,7 @@ output "s3_bucket_name" {
 
 output "sqs_main_queue_url" {
   description = "URL de la cola principal de SQS"
-  value       = aws_s3_queue.main_queue.id
+  value       = aws_sqs_queue.main_queue.id 
 }
 
 output "sqs_dlq_queue_url" {
