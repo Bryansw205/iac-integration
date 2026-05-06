@@ -1,5 +1,11 @@
+resource "random_string" "s3_suffix" {
+  length  = 6
+  special = false
+  upper   = false
+}
+
 resource "aws_s3_bucket" "images" {
-  bucket = "image-processor-${var.entorno}-images"
+  bucket = "image-processor-${var.entorno}-images-${random_string.s3_suffix.result}"
   force_destroy = true 
   tags = { Name = "s3-images-${var.entorno}" }
 }
@@ -33,6 +39,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "encryption" {
 
 resource "aws_s3_bucket_lifecycle_configuration" "lifecycle" {
   bucket = aws_s3_bucket.images.id
+
   rule {
     id     = "expire-uploads-30-days"
     status = "Enabled"
@@ -63,8 +70,8 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
 
   queue {
     queue_arn     = aws_sqs_queue.main_queue.arn
-    events        = ["s3:ObjectCreated:*"] 
-    filter_prefix = "uploads/"             
+    events        = ["s3:ObjectCreated:*"]
+    filter_prefix = "uploads/"
   }
 
   depends_on = [aws_sqs_queue_policy.s3_to_sqs]
