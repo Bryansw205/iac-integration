@@ -30,7 +30,7 @@ resource "aws_lambda_function" "upload_lambda" {
 data "archive_file" "upload_zip" {
   type        = "zip"
   source_dir  = "${path.module}/../src/upload-lambda"
-  output_path = "${path.module}/upload-lambda.zip"
+  output_path = "${path.module}/../src/upload-lambda/upload-lambda.zip"
 }
 
 # CROP LAMBDA
@@ -66,7 +66,7 @@ resource "aws_lambda_function" "crop_lambda" {
 data "archive_file" "crop_zip" {
   type        = "zip"
   source_dir  = "${path.module}/../src/crop-lambda"
-  output_path = "${path.module}/crop-lambda.zip"
+  output_path = "${path.module}/../src/crop-lambda/crop-lambda.zip"
 }
 
 resource "aws_lambda_event_source_mapping" "sqs_trigger" {
