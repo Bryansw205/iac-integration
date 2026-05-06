@@ -21,8 +21,8 @@ resource "aws_security_group" "vpce_sqs_sg" {
 }
 
 resource "aws_security_group" "upload_lambda_sg" {
-  name        = "sg-upload-lambda-${var.entorno}"
-  description = "Segurity group para Lambda upload"
+  name        = "upload-lambda-sg-${var.entorno}"
+  description = "Security group for upload lambda"
   vpc_id      = aws_vpc.main.id
   
   egress {
@@ -36,8 +36,8 @@ resource "aws_security_group" "upload_lambda_sg" {
 }
 
 resource "aws_security_group" "crop_lambda_sg" {
-  name        = "sg-crop-lambda-${var.entorno}"
-  description = "Segurity group para Lambda crop"
+  name        = "crop-lambda-sg-${var.entorno}"
+  description = "Security group for crop lambda"
   vpc_id      = aws_vpc.main.id
 
   egress {
