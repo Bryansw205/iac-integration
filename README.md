@@ -43,6 +43,7 @@ iac/dev.tfvars
 entorno   = "dev" ("prod", "qa")          
 region    = "us-east-2"( o la region de uso)   
 
+Esto creamos para cada uno de los entornos siguiendo esa plantilla
 
 ### 3. Terraform Workspaces
 Este proyecto utiliza Workspaces de Terraform para separar los estados de diferentes entornos.
@@ -74,7 +75,7 @@ Las dependencias de Node.js deben ser instaladas antes de ejecutar Terraform par
 
     cd ../crop-lambda
 
-    npm install --os=linux --cpu=x64 sharp
+    npm install --force --os=linux --cpu=x64 --libc=glibc
 
 Paso 2: Despliegue con Terraform
 Una vez que el código fuente esté listo y estés autenticado en AWS, procede con el despliegue de la infraestructura:
@@ -103,9 +104,7 @@ Para probar la infraestructura, realiza una petición POST enviando una imagen m
 
 Ejemplo usando curl:
 
-curl -X POST https://tu-api-id.execute-api.us-east-1.amazonaws.com/upload \
-  -H "Content-Type: multipart/form-data" \
-  -F "file=@./imagen.jpg"
+  curl.exe -X POST "api-id" -H "Content-Type: multipart/form-data" -F "file=@./imagen.jpg"
 
 api-id se mostrará como output al hacer el apply.
 
